@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#172b3c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="StructInspect">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>StructInspect</title>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="mark">SI</div><div><b>StructInspect</b><small>Полевой журнал обследования</small></div></div>
+  <span id="connection" class="pill">Проверка…</span>
+</header>
+<main>
+  <section class="project card">
+    <label for="project">Объект обследования</label>
+    <input id="project" value="Производственный цех № 1" maxlength="120">
+    <div class="stats"><span id="count">0 дефектов</span><span>Данные хранятся на этом iPhone</span></div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="new">Новый дефект</button>
+    <button class="tab" data-tab="journal">Журнал <span id="tabCount">0</span></button>
+    <button class="tab" data-tab="backup">Экспорт</button>
+  </nav>
+
+  <section id="new" class="panel">
+    <form id="defectForm" class="card">
+      <h2>Регистрация дефекта</h2>
+      <label for="element">Тип конструкции</label>
+      <select id="element">
+        <option>Колонна</option><option>Балка</option><option>Ферма</option>
+        <option>Плита покрытия</option><option>Плита перекрытия</option>
+        <option>Фундамент</option><option>Пол</option><option>Стена</option><option>Связь</option><option>Другое</option>
+      </select>
+      <label for="mark">Маркировка конструкции</label>
+      <input id="mark" placeholder="Например, К-12" required>
+      <div class="two">
+        <div><label for="axes">Оси / ряды</label><input id="axes" placeholder="4–5 / Б" required></div>
+        <div><label for="elevation">Отметка, м</label><input id="elevation" placeholder="+6.000"></div>
+      </div>
+      <label for="defectType">Тип дефекта</label>
+      <select id="defectType">
+        <option>Коррозия металла</option><option>Трещины бетона</option>
+        <option>Сколы и разрушение бетона</option><option>Прогиб конструкции</option>
+        <option>Отклонение от вертикали</option><option>Повреждение сварного соединения</option>
+        <option>Деформация элемента</option><option>Увлажнение</option><option>Другое</option>
+      </select>
+      <label for="dimensions">Размеры дефекта</label>
+      <input id="dimensions" placeholder="Например, 300 × 150 мм">
+      <label for="description">Описание / наблюдения</label>
+      <textarea id="description" rows="4" placeholder="Опиши только фактически наблюдаемые признаки…"></textarea>
+      <label class="photo-label" for="photos">Фотографии дефекта</label>
+      <input id="photos" type="file" accept="image/*" capture="environment" multiple>
+      <small class="hint">На iPhone можно сделать снимок камерой или выбрать фото. Снимки сохраняются в локальной базе приложения.</small>
+      <div id="photoPreview" class="preview"></div>
+      <button class="primary" type="submit">Сохранить дефект</button>
+      <p id="formMessage" class="message" role="status"></p>
+    </form>
+  </section>
+
+  <section id="journal" class="panel hidden">
+    <div class="section-head"><h2>Журнал дефектов</h2><button id="refresh" class="ghost">Обновить</button></div>
+    <div id="records" class="records"></div>
+  </section>
+
+  <section id="backup" class="panel hidden">
+    <div class="card">
+      <h2>Резервная копия</h2>
+      <p>Экспортируй данные после каждого выезда. Файл JSON содержит карточки и прикреплённые фотографии.</p>
+      <button id="export" class="primary">Скачать резервную копию</button>
+      <label class="import-label" for="importFile">Восстановить из резервной копии</label>
+      <input id="importFile" type="file" accept="application/json,.json">
+      <p id="backupMessage" class="message" role="status"></p>
+      <div class="warning"><b>Важно:</b> не удаляй приложение и данные Safari, пока не проверил резервную копию на компьютере. Для реальных объектов соблюдай правила информационной безопасности организации.</div>
+    </div>
+  </section>
+</main>
+<footer>StructInspect · тестовая версия 0.1 · инженерное решение принимает специалист</footer>
+<script src="./app.js"></script>
+</body>
+</html>
